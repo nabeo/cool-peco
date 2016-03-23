@@ -1,0 +1,10 @@
+##
+# select docker container id by docker ps -a
+#
+local res
+res=$(docker ps -a | egrep -v '^CONTAINER ID' | peco --query "$LBUFFER")
+if [ -n $res ]; then
+  local cid
+  cid=$(echo $res | awk '{ print $1 }')
+  _cool-peco-insert-command-line " $cid"
+fi
